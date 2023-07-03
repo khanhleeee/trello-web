@@ -14,12 +14,20 @@ module.exports = {
     'react', 'react-hooks', 'react-refresh'
   ],
   rules: {
+    // React
     'react-refresh/only-export-components': 'warn',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'react/prop-types': 0,
     'react/display-name': 0,
-
+    // MUI
+    'no-restricted-imports': [
+      'error',
+      {
+        'patterns': ['@mui/*/*/*']
+      }
+    ],
+    // Common
     'no-console': 1, // no console log in project
     'no-lonely-if': 1, //if not inside else
     'no-unused-vars': 1, // no unused variable
