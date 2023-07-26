@@ -16,7 +16,7 @@ import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
 import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone'
 import SearchIcon from '@mui/icons-material/Search'
 
-import ModeSelect from '~/components/ModeSelect'
+import ModeSelect from '~/components/ModeSelect/ModeSelect'
 
 import { ReactComponent as TrelloLogo } from '~/assets/trello.svg'
 import { ReactComponent as PlusIcon } from '~/assets/plus_solid.svg'
