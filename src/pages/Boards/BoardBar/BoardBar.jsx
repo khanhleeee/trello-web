@@ -29,8 +29,7 @@ const BoardBar = () => {
     <Box px={2} sx={{
       width: '100%',
       height: (theme) => theme.trello.boardBarHeight,
-      bgcolor: (theme) => 
-        (theme.palette.mode === 'dark' ? '#1c2c3f': 'white'),
+      bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#1c2c3f': '#f2f3f9'),
       display: 'flex',
       alignItems: 'center', 
       justifyContent: 'space-between',
