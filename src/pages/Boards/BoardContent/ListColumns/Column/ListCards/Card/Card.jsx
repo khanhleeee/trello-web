@@ -11,27 +11,37 @@ import CommentIcon from '@mui/icons-material/Comment'
 import InsertLinkIcon from '@mui/icons-material/InsertLink'
 
 
-const Card = () => {
+const Card = ({ card }) => {
+  const isShowCardActions = () => {
+    return !!card?.memberIds?.length || !!card?.comments?.length || !!card?.attachments?.length
+  }
+
   return (
     <MuiCard
       sx={{ 
         boxShadow: '0 0 1px rgba(0, 0, 0, 0.2)',
-        overflow: 'unset'
+        overflow: 'unset',
+        cursor: 'pointer'
       }}
     >
-      <CardMedia
-        sx={{ height: 140 }}
-        image='https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1200px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg'
-        title="green iguana"
-      />
+      {card?.cover && <CardMedia sx={{ height: 140 }} image={card.cover} /> }
+      
       <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
-        <Typography>AU Project</Typography>
+        <Typography>{card?.title}</Typography>
       </CardContent>
-      <CardActions sx={{ p: '0 4px 8px 4px' }}>
-        <Button size="small" startIcon={<PeopleIcon />}>10</Button>
-        <Button size="small" startIcon={<CommentIcon />}>2</Button>
-        <Button size="small" startIcon={<InsertLinkIcon />}>3</Button>
-      </CardActions>
+      {isShowCardActions() && (
+        <CardActions sx={{ p: '0 4px 8px 4px' }}>
+          {!!card?.memberIds?.length && 
+            <Button size="small" startIcon={<PeopleIcon />}>{card.memberIds.length}</Button>
+          }
+          {!!card?.comments?.length && 
+            <Button size="small" startIcon={<CommentIcon />}>2</Button>
+          }
+          {!!card?.attachments?.length && 
+            <Button size="small" startIcon={<InsertLinkIcon />}>3</Button>
+          }
+        </CardActions>
+      )}
     </MuiCard>
   )
 }

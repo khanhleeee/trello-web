@@ -5,7 +5,7 @@ import Button from '@mui/material/Button'
 
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 
-const ListColumns = () => {
+const ListColumns = ({ columns }) => {
   return (
     <Box sx={{ 
       bg: 'inherit',
@@ -16,8 +16,7 @@ const ListColumns = () => {
       overflowY: 'hidden',
       '&::-webkit-scrollbar-track': { m: 2 }
     }}>
-      <Column />
-      <Column />
+      {columns?.map(column => <Column key={column._id} column={column}/> )}
 
       {/* Button add new column */}
       <Box sx={{ 

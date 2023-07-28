@@ -19,14 +19,18 @@ import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import DragHandleIcon from '@mui/icons-material/DragHandle'
 
+import { mapOrder } from '~/utils/sorts'
+
 import ListCards from './ListCards/ListCards'
 
-const Column = () => {
+const Column = ({ column }) => {
   const [anchorEl, setAnchorEl] = useState(null)
   const open = Boolean(anchorEl)
 
   const handleClick = (e) => { setAnchorEl(e.currentTarget) }
   const handleClose = () => { setAnchorEl(null) }
+
+  const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, '_id')
 
   return (
     <Box sx={{
@@ -54,7 +58,7 @@ const Column = () => {
             cursor: 'pointer'
           }}
         >
-        Column title
+          {column?.title} 
         </Typography>
         <Tooltip title='more options'>
           <MoreHorizIcon
@@ -105,7 +109,8 @@ const Column = () => {
         </Menu>
       </Box>
       
-      <ListCards />
+      <ListCards cards={orderedCards}/>
+      
       {/* Footer */}
       <Box sx={{
         height: (theme) => theme.trello.columnFooterHeight,
