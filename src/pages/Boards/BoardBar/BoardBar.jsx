@@ -13,7 +13,8 @@ import Button from '@mui/material/Button'
 
 import GroupAddIcon from '@mui/icons-material/GroupAdd'
 
-const BoardBar = () => {
+const BoardBar = ({ board }) => {
+
   const MENU_ITEM_STYLE = {
     fontWeight: '500',
     bgcolor: 'inherit',
@@ -37,16 +38,21 @@ const BoardBar = () => {
       overflowX: 'auto',
       borderBottom: '1px solid #e4ebfb'
     }}>
-      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+      <Box sx={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        gap: 2,
+        textTransform: 'capitalize'
+      }}>
         <Chip 
           icon={<DashboardIcon fontSize='small'/>} 
-          label="My own board" 
+          label={board?.title} 
           clickable
           sx={MENU_ITEM_STYLE} 
         />
         <Chip 
           icon={<HttpsIcon fontSize='small'/>} 
-          label="Public/Private board" 
+          label={board?.type} 
           clickable
           sx={MENU_ITEM_STYLE} 
         />
