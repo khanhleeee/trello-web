@@ -33,15 +33,16 @@ const AppBar = () => {
 
 
   return (
-    <Box px={2} sx={{
-      width: '100%',
+    <Box sx={{
       height: (theme) => theme.trello.appBarHeight,
       bgcolor: (theme) => 
         (theme.palette.mode === 'dark' ? theme.palette.background : theme.palette.primary.main),
+      width: '100%',
       color: 'white',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'space-between',
+      px: 2,
       gap: 2,
       overflowX: 'auto',
       overflowY: 'hidden'
@@ -91,7 +92,7 @@ const AppBar = () => {
                 </InputAdornment>
               ),
               endAdornment: (
-                <Fade in={searchValue}>
+                <Fade in={!!searchValue}>
                   <CloseIcon
                     fontSize='small' 
                     sx={{ color: 'white', cursor: 'pointer' }}
