@@ -40,7 +40,7 @@ const Profile = () => {
           <Avatar 
             sx={{ width: 34, height: 34 }} 
             alt='avatar'  
-            src='https://scontent.fsgn5-13.fna.fbcdn.net/v/t39.30808-6/352818778_3068864243416812_8688953589671192243_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=sQ7i27EU9EgAX8_U-Ep&_nc_ht=scontent.fsgn5-13.fna&oh=00_AfB0ZevYsAG4JLTNhmf02qnkgn1r-62aNR_BcOArfCZWBQ&oe=64B55717'
+            src=''
           />
         </IconButton>
       </Tooltip>

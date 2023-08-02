@@ -103,19 +103,19 @@ const BoardBar = ({ board }) => {
           }}
         >
           <Tooltip title='user'>
-            <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
+            <Avatar alt="Remy Sharp" src="" />
           </Tooltip>
           <Tooltip title='user'>
-            <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
+            <Avatar alt="Travis Howard" src="" />
           </Tooltip>
           <Tooltip title='user'>
-            <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
+            <Avatar alt="Cindy Baker" src="" />
           </Tooltip>
           <Tooltip title='user'>
-            <Avatar alt="Agnes Walker" src="/static/images/avatar/4.jpg" />
+            <Avatar alt="Agnes Walker" src="" />
           </Tooltip>
           <Tooltip title='user'>
-            <Avatar alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
+            <Avatar alt="Trevor Henderson" src="" />
           </Tooltip>
         </AvatarGroup>  
       </Box>
