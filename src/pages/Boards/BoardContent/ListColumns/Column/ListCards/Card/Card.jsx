@@ -14,53 +14,70 @@ import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 
 const Card = ({ card }) => {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
-    id: card._id,
-    data: { ...card }
-  })
+	const {
+		attributes,
+		listeners,
+		setNodeRef,
+		transform,
+		transition,
+		isDragging,
+	} = useSortable({
+		id: card._id,
+		data: { ...card },
+	})
 
-  const dndKitColumnStyles = {
-    transform: CSS.Translate.toString(transform),
-    transition,
-    opacity: isDragging ? '0.5' : undefined
-  }
+	const dndKitColumnStyles = {
+		transform: CSS.Translate.toString(transform),
+		transition,
+		opacity: isDragging ? '0.5' : undefined,
+	}
 
-  const isShowCardActions = () => {
-    return !!card?.memberIds?.length || !!card?.comments?.length || !!card?.attachments?.length
-  }
+	const isShowCardActions = () => {
+		return (
+			!!card?.memberIds?.length ||
+			!!card?.comments?.length ||
+			!!card?.attachments?.length
+		)
+	}
 
-  return (
-    <MuiCard
-      ref={setNodeRef}
-      style={dndKitColumnStyles}
-      {...attributes}
-      {...listeners}
-      sx={{ 
-        boxShadow: '0 0 1px rgba(0, 0, 0, 0.2)',
-        overflow: 'unset',
-        cursor: 'pointer'
-      }}
-    >
-      {card?.cover && <CardMedia sx={{ height: 140 }} image={card.cover} /> }
-      
-      <CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
-        <Typography>{card?.title}</Typography>
-      </CardContent>
-      {isShowCardActions() && (
-        <CardActions sx={{ p: '0 4px 8px 4px' }}>
-          {!!card?.memberIds?.length && 
-            <Button size="small" startIcon={<PeopleIcon />}>{card.memberIds.length}</Button>
-          }
-          {!!card?.comments?.length && 
-            <Button size="small" startIcon={<CommentIcon />}>2</Button>
-          }
-          {!!card?.attachments?.length && 
-            <Button size="small" startIcon={<InsertLinkIcon />}>3</Button>
-          }
-        </CardActions>
-      )}
-    </MuiCard>
-  )
+	return (
+		<MuiCard
+			ref={setNodeRef}
+			style={dndKitColumnStyles}
+			{...attributes}
+			{...listeners}
+			sx={{
+				boxShadow: '0 0 1px rgba(0, 0, 0, 0.2)',
+				overflow: 'unset',
+				cursor: 'pointer',
+			}}
+		>
+			{card?.cover && <CardMedia sx={{ height: 140 }} image={card.cover} />}
+
+			<CardContent sx={{ p: 1.5, '&:last-child': { p: 1.5 } }}>
+				<Typography>{card?.title}</Typography>
+			</CardContent>
+			{isShowCardActions() && (
+				<CardActions sx={{ p: '0 4px 8px 4px' }}>
+					{!!card?.memberIds?.length && (
+						<Button size='small' startIcon={<PeopleIcon />}>
+							{card.memberIds.length}
+						</Button>
+					)}
+					{!!card?.comments?.length && (
+						<Button size='small' startIcon={<CommentIcon />}>
+							2
+						</Button>
+					)}
+					{!!card?.attachments?.length && (
+						<Button size='small' startIcon={<InsertLinkIcon />}>
+							3
+						</Button>
+					)}
+				</CardActions>
+			)}
+		</MuiCard>
+	)
 }
 
 export default Card
