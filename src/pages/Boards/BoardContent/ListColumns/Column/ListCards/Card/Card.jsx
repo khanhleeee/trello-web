@@ -50,6 +50,7 @@ const Card = ({ card }) => {
 				boxShadow: '0 0 1px rgba(0, 0, 0, 0.2)',
 				overflow: 'unset',
 				cursor: 'pointer',
+				display: card?.FE_PlaceholderCard ? 'none' : 'block'
 			}}
 		>
 			{card?.cover && <CardMedia sx={{ height: 140 }} image={card.cover} />}

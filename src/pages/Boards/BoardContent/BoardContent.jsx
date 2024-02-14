@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { cloneDeep } from 'lodash'
+import { cloneDeep, isEmpty } from 'lodash'
 
 import Box from '@mui/material/Box'
 
@@ -14,9 +14,7 @@ import {
 	defaultDropAnimationSideEffects,
 	closestCorners,
 	pointerWithin,
-	rectIntersection,
-	getFirstCollision,
-	closestCenter
+	getFirstCollision
 } from '@dnd-kit/core'
 import { arrayMove } from '@dnd-kit/sortable'
 
@@ -26,6 +24,8 @@ import ListColumns from './ListColumns/ListColumns'
 import Column from './ListColumns/Column/Column'
 import Card from './ListColumns/Column/ListCards/Card/Card'
 
+import { generatePlaceholderCard } from '~/utils/formatter'
+
 const ACTIVE_DRAG_ITEM_TYPE = {
 	COLUMN: 'ACTIVE_DRAG_ITEM_TYPE_COLUMN',
 	CARD: 'ACTIVE_DRAG_ITEM_TYPE_CARD',
@@ -34,10 +34,10 @@ const ACTIVE_DRAG_ITEM_TYPE = {
 const BoardContent = ({ board }) => {
 	// const orderedColumns = mapOrder(board?.columns, board?.columnOrderIds, '_id')
 	const pointerSensor = useSensor(PointerSensor, {
-		activationConstraint: { distance: 10 },
+		activationConstraint: { distance: 10 }
 	})
 	const mouseSensor = useSensor(MouseSensor, {
-		activationConstraint: { distance: 10 },
+		activationConstraint: { distance: 10 }
 	})
 
 	const touchSensor = useSensor(TouchSensor, {
@@ -97,14 +97,24 @@ const BoardContent = ({ board }) => {
 				// Xoá card đang kéo ra khỏi column cũ
 				nextActiveColumn.cards = nextActiveColumn.cards.filter((card) => card._id !== activeDraggingCardId)
 
+				// Thêm placeholder card nếu column bị rỗng (bị kéo hết card đi)
+				if (isEmpty(nextActiveColumn.cards)) {
+					nextActiveColumn.cards = [generatePlaceholderCard(nextActiveColumn)]
+				}
+
 				nextActiveColumn.cardOrderIds = nextActiveColumn.cards.map((card) => card._id)
 			}
 
 			if (nextOverColumn) {
+
 				// Nếu activeCard đang kéo đã tồn tại ở overColumn thì xoá trước
 				nextOverColumn.cards = nextOverColumn.cards.filter((card) => card._id !== activeDraggingCardId)
 				// Rebuild lại data của card đó (vì column id vẫn lưu là column id cũ)
 				const rebuild_activeDraggingCardData = { ...activeDraggingCardData, columnId: nextOverColumn._id }
+
+				// Xoá placeholder card đi (nếu column là column rỗng)
+				nextOverColumn.cards = nextOverColumn.cards.filter(card => !card.FE_PlaceholderCard)
+
 				// Thêm activeCard đang kéo vào overColumn với index mới -> syntax: index thêm, số lượng delete, dữ liệu
 				// toSpliced(start, deleteCount, item1)
 				nextOverColumn.cards = nextOverColumn.cards.toSpliced(newCardIndex, 0, rebuild_activeDraggingCardData)
