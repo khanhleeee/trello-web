@@ -36,7 +36,7 @@ const boardTheme = extendTheme({
 		dark: {
 			palette: {
 				primary: {
-					'50': 'rgba(26, 35, 126, 0.5)',
+					light: 'rgba(26, 35, 126, 0.5)',
 					main: indigo[500]
 				},
 				text: {

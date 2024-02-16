@@ -35,7 +35,7 @@ const AppBar = () => {
   return (
     <Box sx={{
       height: (theme) => theme.trello.appBarHeight,
-      bgcolor: (theme) => 
+      bgcolor: (theme) =>
         (theme.palette.mode === 'dark' ? theme.palette.background : theme.palette.primary.main),
       width: '100%',
       color: 'white',
@@ -52,8 +52,8 @@ const AppBar = () => {
           <AppsIcon sx={{ color: 'white' }} />
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
             <SvgIcon component={TrelloLogo} inheritViewBox fontSize='small' sx={{ color: 'white' }} />
-            <Typography 
-              variant='span' 
+            <Typography
+              variant='span'
               sx={{ fontSize: '1.2rem', fontWeight: '800', userSelect: 'none', color: 'white' }}>
               Trello
             </Typography>
@@ -64,13 +64,13 @@ const AppBar = () => {
             <Recent />
             <Templates />
             <Starred />
-            <Button 
-              variant="outlined" 
+            <Button
+              variant="outlined"
               size='small'
-              startIcon={<SvgIcon component={PlusIcon} inheritViewBox sx={{ width: 14, height: 14 }}/>}
+              startIcon={<SvgIcon component={PlusIcon} inheritViewBox sx={{ width: 14, height: 14 }} />}
               sx={{ color: 'white', border: 'none', '&:hover': { border: 'none' } }}
             >
-            Create new
+              Create new
             </Button>
           </Box>
 
@@ -93,15 +93,17 @@ const AppBar = () => {
               ),
               endAdornment: (
                 <Fade in={!!searchValue}>
-                  <CloseIcon
-                    fontSize='small' 
-                    sx={{ color: 'white', cursor: 'pointer' }}
-                    onClick={() => setSearchValue('')}
-                  />
+                  <InputAdornment position="end">
+                    <CloseIcon
+                      fontSize='small'
+                      sx={{ color: 'white', cursor: 'pointer' }}
+                      onClick={() => setSearchValue('')}
+                    />
+                  </InputAdornment>
                 </Fade>
               )
             }}
-            sx={{ 
+            sx={{
               '& label': { color: 'white' },
               '& input': { color: 'white' },
               '& label.Mui-focused': { color: 'white' },
@@ -114,7 +116,7 @@ const AppBar = () => {
           />
         </Box>
         <ModeSelect />
-        
+
         <Tooltip title='Notifications'>
           <IconButton variant="plain" sx={{ color: 'text.main' }}>
             <Badge color="error" variant="dot">

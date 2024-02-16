@@ -18,12 +18,15 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz'
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle'
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import DragHandleIcon from '@mui/icons-material/DragHandle'
+import CloseIcon from '@mui/icons-material/Close'
+
 
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 
 import { mapOrder } from '~/utils/sorts'
 import ListCards from './ListCards/ListCards'
+import { TextField } from '@mui/material'
 
 const Column = ({ column }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
@@ -34,21 +37,38 @@ const Column = ({ column }) => {
   const dndKitColumnStyles = {
     transform: CSS.Translate.toString(transform),
     transition,
-    height: '100%', 
+    height: '100%',
     opacity: isDragging ? '0.5' : undefined
   }
 
   const [anchorEl, setAnchorEl] = useState(null)
+  const [openNewCardForm, setOpenNewCardForm] = useState(false)
+  const [newCardTitle, setNewCardTitle] = useState('')
+
   const open = Boolean(anchorEl)
+
+  const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, '_id')
+
 
   const handleClick = (e) => { setAnchorEl(e.currentTarget) }
   const handleClose = () => { setAnchorEl(null) }
 
-  const orderedCards = mapOrder(column?.cards, column?.cardOrderIds, '_id')
+  // Handle add new card
+  const toggleOpenNewCardForm = () => setOpenNewCardForm(!openNewCardForm)
+  const handleAddNewCard = (e) => {
+    e.preventDefault() // Ngăn onBlur của input
+
+    if (!newCardTitle) { return }
+    console.log('Add new card', setNewCardTitle)
+    // Gọi API
+
+    toggleOpenNewCardForm()
+    setNewCardTitle('')
+  }
 
   return (
     <div ref={setNodeRef} style={dndKitColumnStyles} {...attributes}>
-      <Box 
+      <Box
         {...listeners}
         sx={{
           minWidth: '300px',
@@ -67,7 +87,7 @@ const Column = ({ column }) => {
           alightItems: 'center',
           justifyContent: 'space-between'
         }}>
-          <Typography 
+          <Typography
             variant='h6'
             sx={{
               fontSize: '1rem',
@@ -75,7 +95,7 @@ const Column = ({ column }) => {
               cursor: 'pointer'
             }}
           >
-            {column?.title} 
+            {column?.title}
           </Typography>
           <Tooltip title='more options'>
             <MoreHorizIcon
@@ -125,24 +145,92 @@ const Column = ({ column }) => {
             </MenuItem>
           </Menu>
         </Box>
-        
-        <ListCards cards={orderedCards}/>
-        
+
+        <ListCards cards={orderedCards} />
+
         {/* Footer */}
         <Box sx={{
           height: (theme) => theme.trello.columnFooterHeight,
-          p: 2,
-          display: 'flex',
-          alightItems: 'center',
-          justifyContent: 'space-between'
+          p: 2
         }}>
-          <Button
-            startIcon={<AddCircleOutlineIcon />}>
-            Add new card
-          </Button>
-          <Tooltip title='Drag to move'>
-            <DragHandleIcon sx={{ cursor: 'pointer' }} />
-          </Tooltip>
+          {openNewCardForm ? (
+            <Box
+              sx={{
+                height: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1
+              }}
+            >
+              <TextField
+                placeholder='Enter title...'
+                type='text'
+                size="small"
+                autoFocus
+                value={newCardTitle}
+                onChange={(e) => setNewCardTitle(e.target.value)}
+                onBlur={() => {
+                  setNewCardTitle('')
+                  toggleOpenNewCardForm()
+                }}
+                sx={{
+                  flex: '1',
+                  '& input': { 
+                    color: (theme) => theme.palette.mode === 'dark' ? 'white' : theme.palette.primary.main,
+                    bgcolor: (theme) => theme.palette.mode === 'dark' ? '#333643' : 'white'
+                  },
+                  '& label.Mui-focused': { color: (theme) => theme.palette.primary.main },
+                  '& .MuiOutlinedInput-root': {
+                    '& fieldset': { borderColor: (theme) => theme.palette.primary.main },
+                    '&:hover fieldset': { borderColor: (theme) => theme.palette.primary.main },
+                    '&.Mui-focused fieldset': { borderColor: (theme) => theme.palette.primary.main }
+                  },
+                  '& .MuiOutlinedInput-input': { borderRadius: 1 }
+                }}
+              />
+              <Box sx={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: 1
+              }}>
+                <Button
+                  size='small'
+                  variant='contained'
+                  sx={{
+                    color: 'white',
+                    justifyContent: 'center',
+                    py: '4px',
+                    my: 1,
+                    boxShadow: 'none'
+                  }}
+                  onMouseDown={handleAddNewCard}>Add Card</Button>
+                <CloseIcon
+                  fontSize='small'
+                  sx={{
+                    cursor: 'pointer',
+                    '&:hover': { color: (theme) => theme.palette.error.light }
+                  }}
+                  onClick={toggleOpenNewCardForm}
+                />
+              </Box>
+            </Box>
+          ) : (
+            <Box onClick={toggleOpenNewCardForm} sx={{
+              display: 'flex',
+              width: '100%',
+              alignItems: 'center',
+              justifyContent: 'space-between'
+            }}>
+              <Button
+                startIcon={<AddCircleOutlineIcon />}>
+                Add new card
+              </Button>
+              <Tooltip title='Drag to move'>
+                <DragHandleIcon sx={{ cursor: 'pointer' }} />
+              </Tooltip>
+            </Box>
+          )}
         </Box>
       </Box>
     </div>

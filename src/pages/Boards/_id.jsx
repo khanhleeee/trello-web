@@ -12,7 +12,7 @@ const Board = () => {
   const [board, setBoard] = useState(null)
 
   useEffect(() => {
-    const boardId = '65c4a5bc8b38331b8b3ce9a8' // dùng react-router-dom chuyển trang rồi lấy param
+    const boardId = '65cce9093eff95d2d9f9643e' // dùng react-router-dom chuyển trang rồi lấy param
 
     fetchBoardDetailsAPI(boardId).then((data) => {
       setBoard(data)
@@ -22,8 +22,8 @@ const Board = () => {
   return (
     <Container disableGutters maxWidth={false} sx={{ height: '100vh' }}>
       <AppBar />
-      <BoardBar board={board}/>
-      <BoardContent board={board}/>
+      <BoardBar board={mockData.board}/>
+      <BoardContent board={mockData.board}/>
     </Container>
   )
 }

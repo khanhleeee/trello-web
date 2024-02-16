@@ -44,12 +44,14 @@ const BoardBar = ({ board }) => {
         gap: 2,
         textTransform: 'capitalize'
       }}>
-        <Chip 
-          icon={<DashboardIcon fontSize='small'/>} 
-          label={board?.title} 
-          clickable
-          sx={MENU_ITEM_STYLE} 
-        />
+        <Tooltip title={board?.description}>
+          <Chip 
+            icon={<DashboardIcon fontSize='small'/>} 
+            label={board?.title} 
+            clickable
+            sx={MENU_ITEM_STYLE} 
+          />
+        </Tooltip>
         <Chip 
           icon={<HttpsIcon fontSize='small'/>} 
           label={board?.type} 
