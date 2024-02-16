@@ -42,7 +42,7 @@ const Column = ({ column }) => {
   }
 
   const [anchorEl, setAnchorEl] = useState(null)
-  const [openNewCardForm, setOpenNewCardForm] = useState(false)
+  const [openNewCardForm, setOpenNewCardForm] = useState(true)
   const [newCardTitle, setNewCardTitle] = useState('')
 
   const open = Boolean(anchorEl)
@@ -165,8 +165,9 @@ const Column = ({ column }) => {
               <TextField
                 placeholder='Enter title...'
                 type='text'
-                size="small"
+                size='small'
                 autoFocus
+                data-no-dnd='true'
                 value={newCardTitle}
                 onChange={(e) => setNewCardTitle(e.target.value)}
                 onBlur={() => {

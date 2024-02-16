@@ -5,9 +5,8 @@ import Box from '@mui/material/Box'
 
 import {
 	DndContext,
-	PointerSensor,
-	MouseSensor,
-	TouchSensor,
+	// MouseSensor,
+	// TouchSensor,
 	useSensor,
 	useSensors,
 	DragOverlay,
@@ -16,6 +15,7 @@ import {
 	pointerWithin,
 	getFirstCollision
 } from '@dnd-kit/core'
+import { MouseSensor, TouchSensor } from '~/customLibraries/DndKitSensors'
 import { arrayMove } from '@dnd-kit/sortable'
 
 import { mapOrder } from '~/utils/sorts'
@@ -28,14 +28,11 @@ import { generatePlaceholderCard } from '~/utils/formatter'
 
 const ACTIVE_DRAG_ITEM_TYPE = {
 	COLUMN: 'ACTIVE_DRAG_ITEM_TYPE_COLUMN',
-	CARD: 'ACTIVE_DRAG_ITEM_TYPE_CARD',
+	CARD: 'ACTIVE_DRAG_ITEM_TYPE_CARD'
 }
 
 const BoardContent = ({ board }) => {
 	// const orderedColumns = mapOrder(board?.columns, board?.columnOrderIds, '_id')
-	const pointerSensor = useSensor(PointerSensor, {
-		activationConstraint: { distance: 10 }
-	})
 	const mouseSensor = useSensor(MouseSensor, {
 		activationConstraint: { distance: 10 }
 	})
