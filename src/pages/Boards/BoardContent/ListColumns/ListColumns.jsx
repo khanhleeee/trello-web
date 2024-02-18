@@ -1,10 +1,11 @@
 import { useState } from 'react'
 
+import { toast } from 'react-toastify'
+
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 
 import { SortableContext, horizontalListSortingStrategy } from '@dnd-kit/sortable'
-
 
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'
 import { TextField } from '@mui/material'
@@ -21,8 +22,8 @@ const ListColumns = ({ columns }) => {
   const handleAddNewColumn = (e) => {
     e.preventDefault() // Ngăn onBlur của input
 
-    if(!newColumnTitle) { return }
-    console.log('Add new column', newColumnTitle)
+    if (!newColumnTitle) { return toast.warn('Please enter the column title!') }
+    toast.success(`Add new column ${newColumnTitle}` )
     // Gọi API
 
     toggleOpenNewColumnForm()
