@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import { toast } from 'react-toastify'
+
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
@@ -42,7 +44,7 @@ const Column = ({ column }) => {
   }
 
   const [anchorEl, setAnchorEl] = useState(null)
-  const [openNewCardForm, setOpenNewCardForm] = useState(true)
+  const [openNewCardForm, setOpenNewCardForm] = useState(false)
   const [newCardTitle, setNewCardTitle] = useState('')
 
   const open = Boolean(anchorEl)
@@ -58,8 +60,8 @@ const Column = ({ column }) => {
   const handleAddNewCard = (e) => {
     e.preventDefault() // Ngăn onBlur của input
 
-    if (!newCardTitle) { return }
-    console.log('Add new card', setNewCardTitle)
+    if (!newCardTitle) { return toast.warn('Please enter card title!')}
+    console.log('Add new card', newCardTitle)
     // Gọi API
 
     toggleOpenNewCardForm()
@@ -217,13 +219,14 @@ const Column = ({ column }) => {
               </Box>
             </Box>
           ) : (
-            <Box onClick={toggleOpenNewCardForm} sx={{
+            <Box sx={{
               display: 'flex',
               width: '100%',
               alignItems: 'center',
               justifyContent: 'space-between'
             }}>
               <Button
+                onClick={toggleOpenNewCardForm}
                 startIcon={<AddCircleOutlineIcon />}>
                 Add new card
               </Button>
